@@ -1,70 +1,81 @@
 <div class="container-fluid">
-    <app-sidebar></app-sidebar>
-     <div class="content">
-      <app-header></app-header>
-        <div class="info">
-          <div class="card">
-              <div class="card-header">
-                Add User
-              </div>
-              <div class="card-body">
-                <form [formGroup]="registerForm" (ngSubmit)="OnSubmit()">
-                    <div class="form-group">
-                      <label class="col-form-label">First Name</label>
-                      <input type="text" class="form-control" formControlName="firstName" placeholder="evan" autofocus>
-                      <span class="text-danger mb-0" *ngIf="firstName.invalid &&  (firstName.touched || formValid)">
-                        Please Enter FirstName
-                      </span>
-                    </div>
+  <app-sidebar></app-sidebar>
+   <div class="content">
+    <app-header></app-header>
+      <div class="info">
+        <div class="card">
+            <div class="card-header">
+              Add User
+            </div>
+            <div class="card-body">
+              <form [formGroup]="registerForm" (ngSubmit)="OnSubmit()">
+
+                  <div class="form-group">
+                    <label class="col-form-label">First Name</label>
+                    <input type="text" class="form-control" formControlName="firstName" placeholder="Raj" autofocus>
+                    <span class="text-danger mb-0" *ngIf="firstName.invalid && (firstName.touched || formValid)">
+                      <span *ngIf="firstName.errors?.['required']">First name is required.</span>
+                      <span *ngIf="firstName.errors?.['maxlength']">First name cannot exceed 30 characters.</span>
+                    </span>
+                  </div>
+                  <!-- Added the missing Last Name field -->
+                  <div class="form-group">
+                    <label class="col-form-label">Last Name</label>
+                    <input type="text" class="form-control" formControlName="lastName" placeholder="Bhatt" autofocus>
+                    <span class="text-danger mb-0" *ngIf="lastName.invalid && (lastName.touched || formValid)">
+                      <span *ngIf="lastName.errors?.['required']">Last name is required.</span>
+                      <span *ngIf="lastName.errors?.['maxlength']">Last name cannot exceed 30 characters.</span>
+                    </span>
+                  </div>
+                  <!-- Added the missing Phone Number field -->
+                  <div class="form-group">
+                    <label class="col-form-label">Phone Number</label>
+                    <input type="text" class="form-control" formControlName="phoneNumber" placeholder="XXXXXXXXXX">
+                    <span class="text-danger" *ngIf="phoneNumber.invalid && (phoneNumber.touched || formValid)">
+                      <span *ngIf="phoneNumber.errors?.['required']">Phone number is required.</span>
+                      <span *ngIf="phoneNumber.errors?.['minlength']">Phone number must be 10 digits.</span>
+                      <span *ngIf="phoneNumber.errors?.['maxlength']">Phone number must be 10 digits.</span>
+                      <span *ngIf="phoneNumber.errors?.['digitsOnly']">Phone number can only contain digits.</span>
+                    </span>
+                  </div>
+                 
+                  <div class="form-group">
+                    <label class="col-form-label">Email Address</label>
+                    <input type="text" class="form-control" formControlName="emailAddress" placeholder="raj.bhatt@gmail.com">
+                    <span class="text-danger" *ngIf="emailAddress.invalid && (emailAddress.touched || formValid)">
+                      <span *ngIf="emailAddress.errors?.['required']">Email address is required.</span>
+                      <span *ngIf="emailAddress.errors?.['email']">Please enter a valid email address.</span>
+                      <span *ngIf="emailAddress.errors?.['maxlength']">Email address cannot exceed 30 characters.</span>
+                    </span>
+                  </div>
                    
-                    <div class="form-group">
-                      <label class="col-form-label">Email Address</label>
-                      <input type="text" class="form-control" formControlName="emailAddress" placeholder="evan.donohue@gmail.com">
-                      <span class="text-danger" *ngIf="emailAddress.invalid &&  (emailAddress.touched || formValid)">
-                        <span *ngIf="emailAddress.hasError('required')">
-                          Please Enter EmailAddress
-                        </span>
-                        <span *ngIf="emailAddress.hasError('email')">
-                          Please Enter Valid EmailAddress
-                        </span>
-                      </span>
-                    </div>
-                    <div class="form-group">
-                      <label class="col-form-label">Password</label>
-                      <input type="password" class="form-control" formControlName="password" placeholder="**********">
-                      <span class="text-danger" *ngIf="password.invalid && (password.touched || formValid)">
-                            <span *ngIf="password.errors?.['required']">
-                              Please Enter Password
-                            </span>
-                            <span *ngIf="password.errors?.['minLength']">
-                              Password should not be less than 5 character
-                            </span>
-                            <span *ngIf="password.errors?.['maxLength']">
-                              Password should not be greater than 10 character
-                            </span>
-                      </span>
-                    </div>
-                    <div class="form-group">
-                      <label class="col-form-label">Confirm Password</label>
-                      <input type="password" class="form-control" formControlName="confirmPassword" placeholder="**********">
-                      <span class="text-danger" *ngIf="confirmPassword.invalid && (confirmPassword.touched || formValid)">
-                          <span *ngIf="confirmPassword.hasError('required')">
-                            Please Enter Confirm Password
-                          </span>
-                      </span>
-                      <span class="text-danger" *ngIf="registerForm.hasError('notmatched') && confirmPassword.valid">
-                          Password and Confirm Password not matched
-                      </span>
-                    </div>
-                    <div class="d-grid mt-5">
-                      <button class="btnSave" type="submit"><span class="Login">Register</span></button>
-                    </div>
-    
-                  </form>
-              </div>
-              
-          </div>
-       </div>
+                  <div class="form-group">
+                    <label class="col-form-label">Password</label>
+                    <input type="password" class="form-control" formControlName="password" placeholder="**********">
+                    <span class="text-danger" *ngIf="password.invalid && (password.touched || formValid)">
+                          <span *ngIf="password.errors?.['required']">Password is required.</span>
+                          <span *ngIf="password.errors?.['minlength']">Password must be at least 6 characters.</span>
+                          <span *ngIf="password.errors?.['maxlength']">Password cannot exceed 20 characters.</span>
+                    </span>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-form-label">Confirm Password</label>
+                    <input type="password" class="form-control" formControlName="confirmPassword" placeholder="**********">
+                    <span class="text-danger" *ngIf="confirmPassword.invalid && (confirmPassword.touched || formValid)">
+                        <span *ngIf="confirmPassword.errors?.['required']">Confirm Password is required.</span>
+                    </span>
+                    <span class="text-danger" *ngIf="registerForm.hasError('notmatched') && confirmPassword.valid">
+                      Password and Confirm Password must match.
+                    </span>
+                  </div>
+                  <div class="d-grid mt-5">
+                    <button class="btnSave" type="submit"><span class="Login">Register</span></button>
+                  </div>
+  
+                </form>
+            </div>
+            
+        </div>
      </div>
    </div>
-  
+ </div>
